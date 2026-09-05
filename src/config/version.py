@@ -1,0 +1,3 @@
+APP_NAME = "AutomationHub"
+VERSION = "1.0.0"
+BUILD = "2026.07.15"

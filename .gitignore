@@ -1,8 +1,24 @@
-venv/
-.env
-credentials/
-logs/
-reports/
-screenshots/
+# Python
 __pycache__/
 *.pyc
+*.pyo
+
+# Virtual Environment
+venv/
+
+# Environment
+.env
+
+# Google Credentials
+service-account.json
+credentials.json
+
+# macOS
+.DS_Store
+
+# Playwright
+playwright-report/
+test-results/
+
+# Logs
+*.log

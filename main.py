@@ -1,14 +1,54 @@
-from datetime import datetime
+"""
+Automation Hub
+Main Entry Point
+"""
 
-from src.google_sheets.sheets import get_logs_sheet
+import traceback
 
-sheet = get_logs_sheet()
+from src.services.browser import BrowserService
+from src.modules.technofunda.runner import run
 
-sheet.append_row([
-    datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-    "SYSTEM",
-    "SUCCESS",
-    "Automation Hub Initialized"
-])
 
-print("Google Sheets Connected Successfully.")
+def main():
+
+    browser = None
+
+    try:
+
+        print("=" * 60)
+        print("TECHNOFUNDA AUTOMATION HUB")
+        print("Version : 1.0.1")
+        print("=" * 60)
+
+        browser = BrowserService()
+
+        run(browser.page)
+
+        print("=" * 60)
+        print("Automation Completed Successfully")
+        print("=" * 60)
+
+    except KeyboardInterrupt:
+
+        print("\nAutomation cancelled by user.")
+
+    except Exception:
+
+        print("\n" + "=" * 60)
+        print("FATAL ERROR")
+        print("=" * 60)
+
+        traceback.print_exc()
+
+        print("=" * 60)
+
+    finally:
+
+        if browser is not None:
+            browser.close()
+
+        print("\nBrowser Closed.")
+
+
+if __name__ == "__main__":
+    main()

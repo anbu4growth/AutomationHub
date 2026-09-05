@@ -1,0 +1,29 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - -t
+      - gcr.io/$PROJECT_ID/automation-hub
+      - .
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/automation-hub
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - automation-hub
+      - --image=gcr.io/$PROJECT_ID/automation-hub
+      - --region=asia-south1
+      - --platform=managed
+      - --allow-unauthenticated
+      - --memory=1Gi
+      - --cpu=1
+      - --timeout=900
+
+images:
+  - gcr.io/$PROJECT_ID/automation-hub
