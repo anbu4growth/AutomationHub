@@ -3,17 +3,19 @@ name: TechnoFunda Login
 on:
   workflow_dispatch:
 
+  push:
+    branches:
+      - main
+
   schedule:
     # 02:30 UTC = 08:00 IST
     - cron: "30 2 * * *"
 
 jobs:
   login:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -35,6 +37,6 @@ jobs:
         env:
           TF_USERNAME: ${{ secrets.TF_USERNAME }}
           TF_PASSWORD: ${{ secrets.TF_PASSWORD }}
-          HEADLESS: true
+          HEADLESS: "true"
         run: |
           python main.py
